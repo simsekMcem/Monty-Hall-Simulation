@@ -1,0 +1,33 @@
+name: Run code and print output to pull request
+
+on:
+  workflow_dispatch:
+    inputs:
+      pullrequest:
+        despcription: 'Enter the pull request number'
+        required: true
+      number_of_doors:
+        description: 'Enter the number of doors'
+        required: true
+      simulation_number:
+        description: 'Enter the number of simulation'
+        required: true
+
+jobs:
+  test-automation-web:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Python Code
+        id: run
+        run: |
+          python3 simulation.py ${ github.event.inputs.number_of_doors } ${ github.event.inputs.simulation_number } > output.txt;
+          echo "::set-output name=result::$(echo output.txt)";
+      - name: Write results in Pull Request
+        - uses: mshick/add-pr-comment@v1
+          with:
+          message: ${ steps.run.outputs.result }
+          repo-token: ${{ secrets.CEM_TOKEN }}
+          repo-token-user-login: 'smskcm'
+          allow-repeats: true
