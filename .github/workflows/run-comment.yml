@@ -1,0 +1,32 @@
+name: Comment Listener
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  comment-listener:
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!run') }}
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.CEM_TOKEN }}
+          script: |
+            let cmd = context.payload.comment.body
+            let split = cmd.split(" ")
+
+            if (split.length === 3 && parseInt(split[1]) < 50 && parseInt(split[2]) < 100000) {
+              const pr = await github.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number
+              })
+
+              pullrequest_ref = pr["data"]["head"]["ref"]
+
+              await github.request('POST /repos/simsekMcem/Monty-Hall-Simulation/actions/workflows/run-code.yml/dispatches', {
+                ref: pullrequest_ref,
+                inputs: {pullrequest: context.issue.number.toString(), number_of_doors: split[1], simulation_number: split[2]}
+              })
+            }
