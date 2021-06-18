@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/github-script@v3
         with:
-          github-token: ${ secrets.GITHUB_TOKEN }
+          github-token: ${ secrets.CEM_TOKEN }
           script: |
             let cmd = context.payload.comment.body
             let split = cmd.split(" ")
