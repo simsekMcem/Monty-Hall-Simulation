@@ -1,4 +1,4 @@
-name: Run code and print output to pull request
+name: Run Code and Write Output to PR
 
 on:
   workflow_dispatch:
@@ -24,10 +24,10 @@ jobs:
         run: |
           python3 simulation.py ${ github.event.inputs.number_of_doors } ${ github.event.inputs.simulation_number } > output.txt;
           echo "::set-output name=result::$(echo output.txt)";
-      - name: Write results in Pull Request
-        - uses: mshick/add-pr-comment@v1
-          with:
+      - name: Write results
+        uses: mshick/add-pr-comment@v1
+        with:
           message: ${ steps.run.outputs.result }
-          repo-token: ${{ secrets.CEM_TOKEN }}
+          repo-token: ${ secrets.GITHUB_TOKEN }
           repo-token-user-login: 'smskcm'
           allow-repeats: true
