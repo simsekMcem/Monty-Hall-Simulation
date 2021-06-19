@@ -65,7 +65,7 @@ def simulations(numberOfDoors, simulationNumber):
             goat = goat + 1
     
     print("There has been " + str(simulationNumber) + " simulations with " + str(numberOfDoors) + "doors.")
-    print("The probability of winning the car with blind guess is %" + str(blindGuessChance(numberOfDoors) + "."))
+    print("The probability of winning the car with blind guess is %" + str(blindGuessChance(numberOfDoors)) + ".")
     print("If you would have switched your choice, you would win " + str(car) + " cars and win " + str(goat) + " goats.")
     print("Probability of winning if you switch is %" + str(100 * (float(car)/simulationNumber)) + ".")
 
