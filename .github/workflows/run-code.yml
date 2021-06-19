@@ -3,9 +3,6 @@ name: Run Code and Write Output to PR
 on:
   workflow_dispatch:
     inputs:
-      pullrequest:
-        despcription: 'Enter the pull request number'
-        required: true
       number_of_doors:
         description: 'Enter the number of doors'
         required: true
