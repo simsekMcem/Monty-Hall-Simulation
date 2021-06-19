@@ -15,7 +15,7 @@ jobs:
             We're given invalid arguments.
             Check if you're breaking any limitations:
               - You have to follow this command:
-                - runsimulation <int: numberOfDoors> <int: numberOfSimulations>
+                - runsimulation <number: numberOfDoors> <number: numberOfSimulations>
               - 2 < numberOfDoors < 50
               - 0 < numberOfSimulations < 100000
           repo-token: ${{ secrets.GITHUB_TOKEN }}
