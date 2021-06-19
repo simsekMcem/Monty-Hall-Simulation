@@ -6,7 +6,7 @@ on:
 
 jobs:
   comment-listener:
-    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!run') }}
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, 'runsimulation') }}
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/github-script@v3
@@ -29,4 +29,6 @@ jobs:
                 ref: pullrequest_ref,
                 inputs: {pullrequest: context.issue.number.toString(), number_of_doors: split[1], simulation_number: split[2]}
               })
+            } else {
+              await github.request('POST /repos/simsekMcem/Monty-Hall-Simulation/actions/workflows/run-invalid.yml/dispatches', { ref: pullrequest_ref })
             }
