@@ -16,19 +16,15 @@ jobs:
             let cmd = context.payload.comment.body
             let split = cmd.split(" ")
 
-            const pr = await github.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            })
-
-            pullrequest_ref = pr["data"]["head"]["ref"]
-
-            if (split.length === 3 && parseInt(split[1]) < 50 && parseInt(split[2]) < 100000) {
+            let numberOfDoors = parseInt(split[1])
+            let numberOfSimulations = parseInt(split[2])
+            let isValid = split.length === 3 && numberOfDoors < 50 && numberOfDoors > 2 && numberOfSimulations > 0 && numberOfSimulations < 100000
+            
+            if (isValid) {
               await github.request('POST /repos/simsekMcem/Monty-Hall-Simulation/actions/workflows/run-code.yml/dispatches', {
-                ref: pullrequest_ref,
-                inputs: {pullrequest: context.issue.number.toString(), number_of_doors: split[1], simulation_number: split[2]}
+                ref: context.issue.number.toString(),
+                inputs: {number_of_doors: split[1], simulation_number: split[2]}
               })
             } else {
-              await github.request('POST /repos/simsekMcem/Monty-Hall-Simulation/actions/workflows/run-invalid.yml/dispatches', { ref: pullrequest_ref })
+              await github.request('POST /repos/simsekMcem/Monty-Hall-Simulation/actions/workflows/run-invalid.yml/dispatches', { ref: context.issue.number.toString() })
             }

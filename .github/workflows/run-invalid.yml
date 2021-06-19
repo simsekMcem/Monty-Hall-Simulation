@@ -11,14 +11,13 @@ jobs:
         uses: mshick/add-pr-comment@v1
         with:
           message: |
-            if (split.length === 3 && parseInt(split[1]) < 50 && parseInt(split[2]) < 100000)
-            **Hi!**
+            **Hi There!**
             We're given invalid arguments.
-            Check if you're breaking limitations:
+            Check if you're breaking any limitations:
               - You have to follow this command:
                 - runsimulation <int: numberOfDoors> <int: numberOfSimulations>
-              - numberOfDoors < 50
-              - numberOfSimulations < 100000
+              - 2 < numberOfDoors < 50
+              - 0 < numberOfSimulations < 100000
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'smskcm'
           allow-repeats: true
