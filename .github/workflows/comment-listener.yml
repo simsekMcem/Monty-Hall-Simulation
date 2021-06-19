@@ -33,5 +33,5 @@ jobs:
                 inputs: {number_of_doors: split[1], simulation_number: split[2]}
               })
             } else {
-              await github.request('POST /repos/simsekMcem/Monty-Hall-Simulation/actions/workflows/run-invalid.yml/dispatches', { ref: context.issue.number.toString() })
+              await github.request('POST /repos/simsekMcem/Monty-Hall-Simulation/actions/workflows/run-invalid.yml/dispatches', { ref: pullrequest_ref })
             }
