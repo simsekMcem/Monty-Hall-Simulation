@@ -1,0 +1,23 @@
+name: Welcomer
+
+on:
+  pull_request:
+    types: [created]
+
+jobs:
+  welcomer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            Suppose you're on a game show, and you're given the choice of three doors:
+            Behind one door is a car; behind the others, goats.
+            You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat.
+            He then says to you, "Do you want to pick door No. 2?"
+
+            Is it to your advantage to switch your choice?
+            Let's make some experiments!
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          allow-repeats: false
