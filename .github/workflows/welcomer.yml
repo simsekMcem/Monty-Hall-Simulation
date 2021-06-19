@@ -1,8 +1,8 @@
-name: Welcomer
+name: Welcome - What's Monty Hall Problem?
 
 on:
   pull_request:
-    types: [created]
+    types: [opened]
 
 jobs:
   welcomer:
