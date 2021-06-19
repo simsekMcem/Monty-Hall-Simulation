@@ -13,6 +13,13 @@ jobs:
         with:
           github-token: ${{ secrets.CEM_TOKEN }}
           script: |
+            const pr = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            })
+            pullrequest_ref = pr["data"]["head"]["ref"]
+
             let cmd = context.payload.comment.body
             let split = cmd.split(" ")
 
@@ -22,7 +29,7 @@ jobs:
             
             if (isValid) {
               await github.request('POST /repos/simsekMcem/Monty-Hall-Simulation/actions/workflows/run-code.yml/dispatches', {
-                ref: context.issue.number.toString(),
+                ref: pullrequest_ref,
                 inputs: {number_of_doors: split[1], simulation_number: split[2]}
               })
             } else {
