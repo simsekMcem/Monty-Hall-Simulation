@@ -18,6 +18,10 @@ jobs:
 
             Is it to your advantage to switch your choice?
             Let's make some experiments!
+
+            Command out the following:
+              - runsimulation <number: numberOfDoors> <number: numberOfSimulations>
+              - e.g., runsimulation 3 100
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]'
           allow-repeats: false
